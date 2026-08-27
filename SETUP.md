@@ -17,8 +17,10 @@ cd stoxify-shared
 pnpm install && pnpm build
 NODE_AUTH_TOKEN="<PAT-with-write:packages>" pnpm release
 ```
-`NODE_AUTH_TOKEN` must be a GitHub PAT with the `write:packages` scope (or the
-built-in `GITHUB_TOKEN` of this repo, which the `release.yml` workflow already uses).
+`NODE_AUTH_TOKEN` must be a GitHub PAT with `write:packages` (in CI the
+`release.yml` workflow authenticates with the `PUBLISH_TOKEN` repo secret — a PAT
+with `read:packages` + `write:packages` — because the repo-scoped `GITHUB_TOKEN`
+cannot read packages published via a user PAT).
 
 ## 2. Set up ANY service repo to consume `@stoxifyorg/*`
 
