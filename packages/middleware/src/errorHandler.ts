@@ -1,5 +1,5 @@
 import { FastifyError, FastifyRequest, FastifyReply } from 'fastify';
-import { logger } from '@stoxify/logger';
+import { logger } from '@stoxifyorg/logger';
 
 export function errorHandler(error: FastifyError, request: FastifyRequest, reply: FastifyReply) {
   if (error.statusCode) {

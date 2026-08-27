@@ -1,6 +1,6 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import axios from 'axios';
-import { logger } from '@stoxify/logger';
+import { logger } from '@stoxifyorg/logger';
 
 export interface PowerOptions {
   checkOwnership?: boolean;

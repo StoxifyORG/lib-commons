@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const uri = 'mongodb+srv://StoxifyUser:Stoxify@stoxifycluster0.tiri2s9.mongodb.net/stoxify?appName=StoxifyCluster0';
+const uri = 'mongodb+srv://StoxifyUser:Stoxify@stoxifyorgcluster0.tiri2s9.mongodb.net/stoxify?appName=StoxifyCluster0';
 
 async function main() {
   await mongoose.connect(uri);

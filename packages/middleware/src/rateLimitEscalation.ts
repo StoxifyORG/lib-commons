@@ -1,7 +1,7 @@
 import { FastifyRequest } from 'fastify';
-import { getRedisClient, RedisKeys } from '@stoxify/redis';
-import { logger } from '@stoxify/logger';
-import { SecurityLog, User } from '@stoxify/database';
+import { getRedisClient, RedisKeys } from '@stoxifyorg/redis';
+import { logger } from '@stoxifyorg/logger';
+import { SecurityLog, User } from '@stoxifyorg/database';
 import { randomUUID } from 'crypto';
 
 const STRIKE_TTL_SECONDS = 86400; // 24 hours

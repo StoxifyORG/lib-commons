@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { logger } from '@stoxify/logger';
+import { logger } from '@stoxifyorg/logger';
 
 export async function connectDatabase(uri: string): Promise<void> {
   await mongoose.connect(uri, {

@@ -1,5 +1,5 @@
 {
-  "name": "@stoxify/database",
+  "name": "@stoxifyorg/database",
   "version": "1.0.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -15,8 +15,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@stoxify/logger": "workspace:^",
-    "@stoxify/shared-types": "workspace:*",
+    "@stoxifyorg/logger": "workspace:^",
+    "@stoxifyorg/shared-types": "workspace:*",
     "bcrypt": "^6.0.0",
     "mongoose": "^9.9.1",
     "nanoid": "^5.1.11"

@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 import { nanoid } from 'nanoid';
 
 export async function seedAdmin() {
-  const email = process.env.SEED_FOUNDER_EMAIL || 'founder@stoxify.com';
+  const email = process.env.SEED_FOUNDER_EMAIL || 'founder@stoxifyorg.com';
   const existingFounder = await InternalTeamUser.findOne({ $or: [{ email }, { phone: '+910000000000' }] });
   if (existingFounder) {
     console.log('Founder already exists, skipping...');

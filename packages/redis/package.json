@@ -1,5 +1,5 @@
 {
-  "name": "@stoxify/redis",
+  "name": "@stoxifyorg/redis",
   "version": "1.0.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -14,7 +14,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@stoxify/logger": "workspace:*",
+    "@stoxifyorg/logger": "workspace:*",
     "ioredis": "^5.4.1"
   },
   "devDependencies": {

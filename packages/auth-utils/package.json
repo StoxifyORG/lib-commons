@@ -1,5 +1,5 @@
 {
-  "name": "@stoxify/auth-utils",
+  "name": "@stoxifyorg/auth-utils",
   "version": "1.0.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -14,9 +14,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@stoxify/logger": "workspace:*",
-    "@stoxify/redis": "workspace:^",
-    "@stoxify/shared-types": "workspace:*",
+    "@stoxifyorg/logger": "workspace:*",
+    "@stoxifyorg/redis": "workspace:^",
+    "@stoxifyorg/shared-types": "workspace:*",
     "bcrypt": "^6.0.0",
     "elliptic": "^6.6.1",
     "jose": "^6.2.3"

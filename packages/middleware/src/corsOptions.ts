@@ -1,4 +1,4 @@
-import { logger } from '@stoxify/logger';
+import { logger } from '@stoxifyorg/logger';
 
 /**
  * Shared CORS policy for every service.

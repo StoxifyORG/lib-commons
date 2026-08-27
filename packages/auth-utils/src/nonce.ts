@@ -1,4 +1,4 @@
-import { getRedisClient, RedisKeys } from '@stoxify/redis';
+import { getRedisClient, RedisKeys } from '@stoxifyorg/redis';
 
 export async function checkAndMarkNonce(
   deviceId: string,

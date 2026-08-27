@@ -1,8 +1,8 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { randomUUID } from 'crypto';
-import { getRedisClient, RedisKeys } from '@stoxify/redis';
-import { logger } from '@stoxify/logger';
-import { SecurityLog } from '@stoxify/database';
+import { getRedisClient, RedisKeys } from '@stoxifyorg/redis';
+import { logger } from '@stoxifyorg/logger';
+import { SecurityLog } from '@stoxifyorg/database';
 import { ipBlockGuard } from './ipBlockGuard';
 import { recordRateLimitStrike, getEscalationMultiplier } from './rateLimitEscalation';
 

@@ -1,6 +1,6 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { ZodSchema, ZodError } from 'zod';
-import { logger } from '@stoxify/logger';
+import { logger } from '@stoxifyorg/logger';
 
 export function validateBody(schema: ZodSchema<any>) {
   return async (request: FastifyRequest, reply: FastifyReply) => {

@@ -1,5 +1,5 @@
 {
-  "name": "@stoxify/middleware",
+  "name": "@stoxifyorg/middleware",
   "version": "1.0.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -18,11 +18,11 @@
     "@fastify/sensible": "^6.0.4",
     "@fastify/swagger": "^9.8.1",
     "@fastify/swagger-ui": "^6.1.1",
-    "@stoxify/auth-utils": "workspace:*",
-    "@stoxify/database": "workspace:*",
-    "@stoxify/logger": "workspace:*",
-    "@stoxify/redis": "workspace:^",
-    "@stoxify/shared-types": "workspace:*",
+    "@stoxifyorg/auth-utils": "workspace:*",
+    "@stoxifyorg/database": "workspace:*",
+    "@stoxifyorg/logger": "workspace:*",
+    "@stoxifyorg/redis": "workspace:^",
+    "@stoxifyorg/shared-types": "workspace:*",
     "axios": "^1.19.0",
     "fastify": "^5.11.2",
     "zod": "^4.4.3"

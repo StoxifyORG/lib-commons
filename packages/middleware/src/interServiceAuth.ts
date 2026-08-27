@@ -1,6 +1,6 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import crypto from 'crypto';
-import { logger } from '@stoxify/logger';
+import { logger } from '@stoxifyorg/logger';
 
 export async function interServiceAuth(request: FastifyRequest, reply: FastifyReply) {
   const secretHeader = request.headers['x-internal-secret'] as string;

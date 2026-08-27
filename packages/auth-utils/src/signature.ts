@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 import fs from 'fs';
-import { RedisKeys } from '@stoxify/redis';
-import { getRedisClient } from '@stoxify/redis';
+import { RedisKeys } from '@stoxifyorg/redis';
+import { getRedisClient } from '@stoxifyorg/redis';
 
 let defaultPublicKeyPem: string;
 try {

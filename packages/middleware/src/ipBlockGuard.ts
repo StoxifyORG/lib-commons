@@ -1,7 +1,7 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { getRedisClient, RedisKeys } from '@stoxify/redis';
-import { IpBlock } from '@stoxify/database';
-import { logger } from '@stoxify/logger';
+import { getRedisClient, RedisKeys } from '@stoxifyorg/redis';
+import { IpBlock } from '@stoxifyorg/database';
+import { logger } from '@stoxifyorg/logger';
 
 const CACHE_TTL_SEC = 60;
 const REFRESH_LOCK_KEY = 'ip_blocks:refresh_lock';

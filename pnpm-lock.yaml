@@ -14,13 +14,13 @@ importers:
 
   packages/auth-utils:
     dependencies:
-      '@stoxify/logger':
+      '@stoxifyorg/logger':
         specifier: workspace:*
         version: link:../logger
-      '@stoxify/redis':
+      '@stoxifyorg/redis':
         specifier: workspace:^
         version: link:../redis
-      '@stoxify/shared-types':
+      '@stoxifyorg/shared-types':
         specifier: workspace:*
         version: link:../shared-types
       bcrypt:
@@ -48,10 +48,10 @@ importers:
 
   packages/database:
     dependencies:
-      '@stoxify/logger':
+      '@stoxifyorg/logger':
         specifier: workspace:^
         version: link:../logger
-      '@stoxify/shared-types':
+      '@stoxifyorg/shared-types':
         specifier: workspace:*
         version: link:../shared-types
       bcrypt:
@@ -107,19 +107,19 @@ importers:
       '@fastify/swagger-ui':
         specifier: ^6.1.1
         version: 6.1.1
-      '@stoxify/auth-utils':
+      '@stoxifyorg/auth-utils':
         specifier: workspace:*
         version: link:../auth-utils
-      '@stoxify/database':
+      '@stoxifyorg/database':
         specifier: workspace:*
         version: link:../database
-      '@stoxify/logger':
+      '@stoxifyorg/logger':
         specifier: workspace:*
         version: link:../logger
-      '@stoxify/redis':
+      '@stoxifyorg/redis':
         specifier: workspace:^
         version: link:../redis
-      '@stoxify/shared-types':
+      '@stoxifyorg/shared-types':
         specifier: workspace:*
         version: link:../shared-types
       axios:
@@ -141,7 +141,7 @@ importers:
 
   packages/redis:
     dependencies:
-      '@stoxify/logger':
+      '@stoxifyorg/logger':
         specifier: workspace:*
         version: link:../logger
       ioredis:

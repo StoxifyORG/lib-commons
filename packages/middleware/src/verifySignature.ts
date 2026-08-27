@@ -1,6 +1,6 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { checkAndMarkNonce, getPublicKeyForVersion, reconstructMessage, verifyECDSASignature } from '@stoxify/auth-utils';
-import { logger } from '@stoxify/logger';
+import { checkAndMarkNonce, getPublicKeyForVersion, reconstructMessage, verifyECDSASignature } from '@stoxifyorg/auth-utils';
+import { logger } from '@stoxifyorg/logger';
 
 export async function verifySignature(request: FastifyRequest, reply: FastifyReply) {
   const timestamp = request.headers['x-timestamp'] as string;

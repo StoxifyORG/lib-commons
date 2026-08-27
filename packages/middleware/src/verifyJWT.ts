@@ -1,7 +1,7 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { verifyToken, sha256 } from '@stoxify/auth-utils';
-import { getRedisClient, RedisKeys } from '@stoxify/redis';
-import { logger } from '@stoxify/logger';
+import { verifyToken, sha256 } from '@stoxifyorg/auth-utils';
+import { getRedisClient, RedisKeys } from '@stoxifyorg/redis';
+import { logger } from '@stoxifyorg/logger';
 
 declare module 'fastify' {
   interface FastifyRequest {

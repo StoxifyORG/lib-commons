@@ -1,16 +1,16 @@
 # stoxify-shared
 
-Single source of truth for all shared `@stoxify/*` packages, published to the
+Single source of truth for all shared `@stoxifyorg/*` packages, published to the
 **GitHub Packages** npm registry and consumed by each microservice repo
 (`auth-service`, `user-service`, …) as normal versioned dependencies.
 
 ## Packages
-- `@stoxify/auth-utils` — JWT, nonce, ECDSA signature, AES, hashing.
-- `@stoxify/database` — Mongoose models, connection, seeds, analytics helpers.
-- `@stoxify/logger` — structured logger.
-- `@stoxify/middleware` — Fastify middleware (verifyJWT, requirePower, interServiceAuth, rateLimiter, …).
-- `@stoxify/redis` — Redis client, pub/sub channels, key builders.
-- `@stoxify/shared-types` — shared TS types & enums (events, enums).
+- `@stoxifyorg/auth-utils` — JWT, nonce, ECDSA signature, AES, hashing.
+- `@stoxifyorg/database` — Mongoose models, connection, seeds, analytics helpers.
+- `@stoxifyorg/logger` — structured logger.
+- `@stoxifyorg/middleware` — Fastify middleware (verifyJWT, requirePower, interServiceAuth, rateLimiter, …).
+- `@stoxifyorg/redis` — Redis client, pub/sub channels, key builders.
+- `@stoxifyorg/shared-types` — shared TS types & enums (events, enums).
 
 > `shared` (no package.json) is intentionally excluded — it is unused by active code.
 
@@ -29,7 +29,7 @@ targets GitHub Packages automatically. The publishing identity's token needs
 
 To consume from a service repo, set in that repo's `.npmrc`:
 ```
-@stoxify:registry=https://npm.pkg.github.com
+@stoxifyorg:registry=https://npm.pkg.github.com
 //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
 ```
 
@@ -44,7 +44,7 @@ independently; `workspace:*` inter-deps are rewritten automatically on release.
    `GITHUB_TOKEN` (it has `packages: write` + `contents: write` via the
    workflow `permissions:` block).
 3. Consuming repos (`auth-service`, etc.) must set a PAT secret `PACKAGES_TOKEN`
-   with `read:packages` so they can pull `@stoxify/*` from GitHub Packages.
+   with `read:packages` so they can pull `@stoxifyorg/*` from GitHub Packages.
 
 ### Day-to-day release flow
 1. Make your code change in one or more packages under `packages/`.
@@ -58,7 +58,7 @@ independently; `workspace:*` inter-deps are rewritten automatically on release.
    dep ranges. Review & merge it.
 6. Merging that PR triggers the workflow again; with no pending changesets it
    runs `pnpm build && pnpm release` → new versions land in GitHub Packages.
-7. In the consuming service repo, bump the `@stoxify/*` range
+7. In the consuming service repo, bump the `@stoxifyorg/*` range
    (e.g. `^1.0.0` → `^1.1.0`), run `pnpm install`, commit, and redeploy.
 
 ### Manual publish (no bot)
@@ -80,7 +80,7 @@ After that, always go through the changeset flow for bumps.
 
 ### Verify a publish
 ```bash
-npm view @stoxify/database versions --registry=https://npm.pkg.github.com
+npm view @stoxifyorg/database versions --registry=https://npm.pkg.github.com
 ```
 
 ## Switch to public npmjs.org (optional)
