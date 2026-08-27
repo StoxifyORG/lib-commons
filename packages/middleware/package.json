@@ -1,0 +1,34 @@
+{
+  "name": "@stoxify/middleware",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "lint": "eslint \"src/**/*.ts\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@fastify/helmet": "^13.1.0",
+    "@fastify/sensible": "^6.0.4",
+    "@fastify/swagger": "^9.8.1",
+    "@fastify/swagger-ui": "^6.1.1",
+    "@stoxify/auth-utils": "workspace:*",
+    "@stoxify/database": "workspace:*",
+    "@stoxify/logger": "workspace:*",
+    "@stoxify/redis": "workspace:^",
+    "@stoxify/shared-types": "workspace:*",
+    "axios": "^1.19.0",
+    "fastify": "^5.11.2",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.4.0"
+  }
+}

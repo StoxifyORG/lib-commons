@@ -1,0 +1,30 @@
+{
+  "name": "@stoxify/auth-utils",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "lint": "eslint \"src/**/*.ts\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@stoxify/logger": "workspace:*",
+    "@stoxify/redis": "workspace:^",
+    "@stoxify/shared-types": "workspace:*",
+    "bcrypt": "^6.0.0",
+    "elliptic": "^6.6.1",
+    "jose": "^6.2.3"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/elliptic": "^6.4.18",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.4.0"
+  }
+}

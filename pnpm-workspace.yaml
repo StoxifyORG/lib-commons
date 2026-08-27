@@ -1,0 +1,14 @@
+packages:
+  - 'packages/*'
+
+allowBuilds:
+  bcrypt: set this to true or false
+
+# Allow these packages' native/postinstall build scripts (pnpm v10+ blocks them by default).
+# Required so bcrypt (used by auth-utils/database) compiles its native binding.
+onlyBuiltDependencies:
+  - bcrypt
+  - esbuild
+  - msgpackr-extract
+  - protobufjs
+  - "@firebase/util"

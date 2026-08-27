@@ -1,0 +1,30 @@
+{
+  "name": "@stoxify/database",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "lint": "eslint \"src/**/*.ts\"",
+    "seed": "ts-node src/seeds/index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@stoxify/logger": "workspace:^",
+    "@stoxify/shared-types": "workspace:*",
+    "bcrypt": "^6.0.0",
+    "mongoose": "^9.9.1",
+    "nanoid": "^5.1.11"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.0"
+  }
+}

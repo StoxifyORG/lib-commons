@@ -1,0 +1,83 @@
+// User
+export enum UserType { END_USER = 'END_USER', ANALYST = 'ANALYST', INTERNAL_TEAM = 'INTERNAL_TEAM' }
+
+export enum EndUserState {
+  UNVERIFIED = 'UNVERIFIED', KYC_PENDING = 'KYC_PENDING', ACTIVE = 'ACTIVE',
+  BLOCKED = 'BLOCKED', SUSPENDED = 'SUSPENDED', SUSPICIOUS = 'SUSPICIOUS',
+  // Admin soft-deactivate (legacy self-serve path; previously used in code but
+  // undeclared here). Kept for reconciliation.
+  DEACTIVATED = 'DEACTIVATED',
+  // Self-serve account deletion: PENDING_DELETION during the 30-day grace
+  // (reversible by logging in), DELETED once the purge job has anonymised PII.
+  PENDING_DELETION = 'PENDING_DELETION', DELETED = 'DELETED'
+}
+
+export enum AnalystState {
+  UNVERIFIED = 'UNVERIFIED', VERIFICATION_PENDING = 'VERIFICATION_PENDING',
+  VERIFICATION_ONGOING = 'VERIFICATION_ONGOING', VERIFICATION_REJECTED = 'VERIFICATION_REJECTED',
+  ACTIVE = 'ACTIVE', BLOCKED = 'BLOCKED', SUSPENDED = 'SUSPENDED',
+  DEACTIVATED = 'DEACTIVATED',
+  PENDING_DELETION = 'PENDING_DELETION', DELETED = 'DELETED'
+}
+
+export enum InternalTeamState { ACTIVE = 'ACTIVE', SUSPENDED = 'SUSPENDED' }
+
+export enum InternalTeamRole {
+  FOUNDER = 'FOUNDER', ADMIN = 'ADMIN', ANALYST_REVIEWER = 'ANALYST_REVIEWER',
+  SUPPORT = 'SUPPORT', DEVELOPER = 'DEVELOPER'
+}
+
+// Trade
+export enum TradeType { SIMPLE = 'SIMPLE', PAIR = 'PAIR' }
+export enum TradeSegment { EQUITY = 'EQUITY', FNO = 'FNO' }
+export enum TradeCategory {
+  SHORT_TERM = 'SHORT_TERM', LONG_TERM = 'LONG_TERM', MEDIUM_TERM = 'MEDIUM_TERM',
+  INTRADAY = 'INTRADAY', SWING = 'SWING', POSITIONAL = 'POSITIONAL'
+}
+export enum TradeDirection { LONG = 'LONG', SHORT = 'SHORT' }
+export enum TradeStatus {
+  LIVE = 'LIVE', CLOSED_BY_SL = 'CLOSED_BY_SL',
+  CLOSED_BY_TARGET = 'CLOSED_BY_TARGET', MANUALLY_CLOSED = 'MANUALLY_CLOSED'
+}
+
+// Plan
+export enum PlanSegment { FNO = 'FNO', EQUITY = 'EQUITY', BOTH = 'BOTH' }
+
+// Subscription
+export enum SubscriptionStatus {
+  ACTIVE = 'ACTIVE', EXPIRED = 'EXPIRED', CANCELLED = 'CANCELLED', PAYMENT_PENDING = 'PAYMENT_PENDING'
+}
+
+// Session
+export enum DeviceType { WEB = 'WEB', ANDROID = 'ANDROID', IOS = 'IOS' }
+
+// Security
+export enum IncidentType {
+  INVALID_SIGNATURE = 'INVALID_SIGNATURE', EXPIRED_TOKEN = 'EXPIRED_TOKEN',
+  REPLAY_ATTACK = 'REPLAY_ATTACK', RATE_LIMIT_EXCEEDED = 'RATE_LIMIT_EXCEEDED',
+  UNAUTHORIZED_ACCESS = 'UNAUTHORIZED_ACCESS'
+}
+export enum Severity { LOW = 'LOW', MEDIUM = 'MEDIUM', HIGH = 'HIGH', CRITICAL = 'CRITICAL' }
+export enum ActionTaken { BLOCKED = 'BLOCKED', LOGGED = 'LOGGED', ALERTED = 'ALERTED' }
+
+// Notification
+export enum NotificationType {
+  TRADE_CREATED = 'TRADE_CREATED', TRADE_MODIFIED = 'TRADE_MODIFIED',
+  TRADE_CLOSED = 'TRADE_CLOSED', SUBSCRIPTION_EXPIRING = 'SUBSCRIPTION_EXPIRING',
+  ANALYST_VERIFIED = 'ANALYST_VERIFIED'
+}
+
+// RBAC
+export enum PowerCategory {
+  TRADE = 'TRADE', ANALYST = 'ANALYST', USER = 'USER', PLAN = 'PLAN',
+  SUBSCRIPTION = 'SUBSCRIPTION', NOTIFICATION = 'NOTIFICATION', ADMIN = 'ADMIN',
+  SECURITY = 'SECURITY', MARKET_DATA = 'MARKET_DATA', WEBSOCKET = 'WEBSOCKET'
+}
+
+export enum RoleName {
+  FOUNDER = 'FOUNDER', ADMIN = 'ADMIN', ANALYST_REVIEWER = 'ANALYST_REVIEWER',
+  SUPPORT = 'SUPPORT', DEVELOPER = 'DEVELOPER', ANALYST = 'ANALYST', END_USER = 'END_USER'
+}
+
+// Market
+export enum Exchange { NSE = 'NSE', BSE = 'BSE' }
