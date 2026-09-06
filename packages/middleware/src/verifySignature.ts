@@ -50,7 +50,9 @@ export async function verifySignature(request: FastifyRequest, reply: FastifyRep
 
   const valid = verifyECDSASignature(message, signature, publicKey);
   if (!valid) {
-    logger.warn({ event: 'INVALID_SIGNATURE', reason: 'Signature mismatch', ip: request.ip, messageVerified: message, providedSignature: signature });
+    const sensitiveKyc = (request.routeOptions.config as { sensitiveKyc?: boolean }).sensitiveKyc === true;
+    logger.warn({ event: 'INVALID_SIGNATURE', reason: 'Signature mismatch', ip: request.ip,
+      ...(sensitiveKyc ? {} : { messageVerified: message, providedSignature: signature }) });
     return reply.status(401).send({ error: 'INVALID_SIGNATURE', code: 'SIGNATURE_MISMATCH', details: {} });
   }
 }

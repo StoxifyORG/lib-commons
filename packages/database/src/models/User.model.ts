@@ -97,6 +97,20 @@ BaseUserSchema.index({ user_type: 1, state: 1 });
 // small set of accounts in the deletion grace window.
 BaseUserSchema.index({ state: 1, deletion_scheduled_at: 1 }, { sparse: true });
 
+// Only trader identities participate: a linked analyst persona may belong to
+// the same person. Legacy accounts without a DigiLocker subject are excluded.
+BaseUserSchema.index(
+  { 'kyc.digilocker_subject_hash': 1 },
+  {
+    unique: true,
+    name: 'trader_digilocker_subject_unique',
+    partialFilterExpression: {
+      user_type: 'END_USER',
+      'kyc.digilocker_subject_hash': { $type: 'string' },
+    },
+  }
+);
+
 export const User = mongoose.model('User', BaseUserSchema);
 
 export const EndUser = User.discriminator(
@@ -113,9 +127,38 @@ export const EndUser = User.discriminator(
     },
     kyc: {
       aadhaar_verified: Boolean,
-      digilocker_response: Schema.Types.Mixed,
+      digilocker_response: { type: Schema.Types.Mixed, select: false },
       verified_at: Date,
       verification_attempts: { type: Number, default: 0 },
+      status: { type: String, enum: ['VERIFIED'] },
+      provider: { type: String, enum: ['DEEPVUE'] },
+      method: { type: String, enum: ['DIGILOCKER'] },
+      masked_aadhaar: String,
+      evidence_id: String,
+      policy_version: String,
+      verified_name_match: Boolean,
+      identity_encrypted: { type: String, select: false },
+      digilocker_subject_hash: { type: String, select: false },
+      consent: {
+        version: String,
+        purpose: String,
+        accepted_at: Date,
+      },
+      activation_event: {
+        type: new Schema(
+          {
+            event_id: String,
+            pending: Boolean,
+            created_at: Date,
+            retry_count: Number,
+            next_attempt_at: Date,
+            failure_code: { type: String, enum: ['KYC_EVENT_INVALID_RECORD'] },
+            failed_at: Date,
+          },
+          { _id: false }
+        ),
+        select: false,
+      },
     },
     suspicious_flags: [
       {

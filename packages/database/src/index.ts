@@ -8,6 +8,8 @@ export * from './models/Role.model';
 export * from './models/Power.model';
 export * from './models/UserRole.model';
 export * from './models/Session.model';
+export * from './models/TraderKycSession.model';
+export { hasVerifiedTraderKyc, traderActivationFilter, TRADER_KYC_PRIVATE_PROJECTION } from './traderKyc';
 export * from './models/Nonce.model';
 export * from './models/SecurityLog.model';
 export * from './models/Notification.model';
