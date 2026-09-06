@@ -201,7 +201,13 @@ function prepareConsumers(options, dependencies = {}) {
     for (const plan of plans) {
       const directory = path.join(temporaryRoot, plan.consumer.directory);
       fs.mkdirSync(directory);
-      fs.writeFileSync(path.join(directory, 'package.json'), plan.manifest.bytes);
+      // pnpm add preserves an existing dependency's range operator, so on a
+      // consumer already pinning ^1.0.0 it writes ^1.1.0 where an exact pin is
+      // required. Write the intended exact manifest and let install do nothing
+      // but resolve it. The comparison below still fails closed if pnpm alters
+      // any field, so this loosens no guarantee.
+      const intended = { ...plan.json, dependencies: { ...plan.json.dependencies, ...versions } };
+      fs.writeFileSync(path.join(directory, 'package.json'), `${JSON.stringify(intended, null, 2)}\n`);
       if (plan.lock.bytes !== null) fs.writeFileSync(path.join(directory, 'pnpm-lock.yaml'), plan.lock.bytes);
       // These are single-service workspaces. Do not inherit pnpm11 build-policy
       // settings, parent workspace discovery, or any repository pnpmfile hooks.
@@ -209,8 +215,7 @@ function prepareConsumers(options, dependencies = {}) {
       fs.writeFileSync(path.join(directory, '.npmrc'),
         '@stoxifyorg:registry=https://npm.pkg.github.com\n//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}\n', { mode: 0o600 });
       execute('pnpm', [
-        'add', '--save-exact', '--lockfile-only', '--ignore-scripts', '--ignore-pnpmfile',
-        '--no-frozen-lockfile', '--reporter=silent', `${DATABASE}@${versions[DATABASE]}`, `${MIDDLEWARE}@${versions[MIDDLEWARE]}`,
+        'install', '--lockfile-only', '--ignore-scripts', '--ignore-pnpmfile', '--reporter=silent',
       ], directory, env, run);
       const manifest = fs.readFileSync(path.join(directory, 'package.json'));
       const expected = { ...plan.json, dependencies: { ...plan.json.dependencies, ...versions } };
