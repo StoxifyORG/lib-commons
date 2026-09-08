@@ -48,4 +48,11 @@ export {
   type AnalystMetrics,
 } from './analystMetrics';
 export { connectDatabase } from './connection';
+export {
+  withMongoTransaction,
+  type MongoTransactionFn,
+  type WithMongoTransactionOptions,
+  type TransactionOptions,
+} from './withMongoTransaction';
+export type { ClientSession } from 'mongoose';
 export { runSeed } from './seeds/index';
