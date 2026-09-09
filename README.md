@@ -14,7 +14,7 @@ repo (`auth-service`, `backend-stocxify`, …) as normal dependencies.
 | Package | Purpose |
 |---|---|
 | `@stoxifyorg/shared-types` | Shared TS types & enums (events, enums). No internal deps. |
-| `@stoxifyorg/logger` | Structured logger (pino). No internal deps. |
+| `@stoxifyorg/logger` | Structured logger (pino), redacts sensitive fields at any depth. No internal deps. |
 | `@stoxifyorg/redis` | Redis client, pub/sub channels, key builders. Deps: `logger`. |
 | `@stoxifyorg/database` | Mongoose models, connection, seeds, analytics helpers. Deps: `logger`, `shared-types`. |
 | `@stoxifyorg/auth-utils` | JWT, nonce, ECDSA signature, AES, hashing. Deps: `logger`, `redis`, `shared-types`. |
