@@ -187,3 +187,30 @@ test('redaction adds no meaningful per-call cost', () => {
     `redaction cost ${redacting.toFixed(0)}ns vs ${baseline.toFixed(0)}ns baseline`,
   );
 });
+
+test('contact PII from real auth-service log lines is censored', () => {
+  // Reproduces the shapes observed in staging logs, where `identifier` carried
+  // either a phone number or an email address alongside the OTP events.
+  const line = logged((log) =>
+    log.info({ identifier: '+917777777777', new_user: false }, 'Analyst OTP sent'),
+  );
+  const out = JSON.parse(line);
+  assert.equal(out.identifier, REDACT_CENSOR);
+  assert.equal(out.msg, 'Analyst OTP sent');
+  // Non-sensitive siblings on the same line are untouched.
+  assert.equal(out.new_user, false);
+
+  for (const [key, value] of [
+    ['phone', '+919999999999'],
+    ['phoneNumber', '+919999999999'],
+    ['phone_number', '+919999999999'],
+    ['mobile', '9999999999'],
+    ['email', 'someone@stoxify.in'],
+    ['emailAddress', 'someone@stoxify.in'],
+    ['identifier', 'someone@stoxify.in'],
+  ]) {
+    assert.ok(isSensitiveKey(key), `${key} should be sensitive`);
+    const nested = JSON.parse(logged((log) => log.info({ user: { [key]: value } }, 'm')));
+    assert.equal(nested.user[key], REDACT_CENSOR, `${key} leaked when nested`);
+  }
+});

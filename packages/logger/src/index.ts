@@ -75,6 +75,18 @@ export const SENSITIVE_KEYS = [
   'cardNumber',
   'card_number',
   'cvv',
+  // Contact PII. `identifier` is the login field auth-service logs, and it
+  // carries either a phone number or an email address.
+  'identifier',
+  'phone',
+  'phoneNumber',
+  'phone_number',
+  'mobile',
+  'mobileNumber',
+  'mobile_number',
+  'email',
+  'emailAddress',
+  'email_address',
 ] as const;
 
 const SENSITIVE_LOOKUP = new Set<string>(SENSITIVE_KEYS.map((key) => key.toLowerCase()));

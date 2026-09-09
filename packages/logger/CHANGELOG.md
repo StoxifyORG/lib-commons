@@ -1,5 +1,20 @@
 # @stoxifyorg/logger
 
+## 1.2.0
+
+### Minor Changes
+
+- Redact contact PII as well.
+
+  `identifier`, `phone`/`phoneNumber`/`phone_number`, `mobile`/`mobileNumber`/
+  `mobile_number` and `email`/`emailAddress`/`email_address` now censor to
+  `[REDACTED]` alongside the credentials and KYC identifiers already covered.
+
+  `identifier` is the login field auth-service logs on every OTP event, and it
+  carries either a phone number or an email address — staging logs were writing
+  subscriber phone numbers in plain text on each `Login OTP sent` /
+  `Analyst OTP sent` line.
+
 ## 1.1.0
 
 ### Minor Changes
