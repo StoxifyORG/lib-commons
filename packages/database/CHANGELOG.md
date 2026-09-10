@@ -1,5 +1,11 @@
 # @stoxifyorg/database
 
+## 1.2.1
+
+### Patch Changes
+
+- Add `PWR_ANALYST_ACQUISITION_VIEW` seed to powers and attach to `SALES`, `ADMIN`, and `FOUNDER` roles for standalone analyst acquisition portal.
+
 ## 1.2.0
 
 ### Minor Changes

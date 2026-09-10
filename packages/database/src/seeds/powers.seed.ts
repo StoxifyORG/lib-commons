@@ -17,6 +17,7 @@ const POWERS = [
   { power_id: 'PWR_ANALYST_READ_ALL', power_name: 'ANALYST_READ_ALL', category: 'ANALYST' },
   { power_id: 'PWR_ANALYST_BLOCK', power_name: 'ANALYST_BLOCK', category: 'ANALYST' },
   { power_id: 'PWR_ANALYST_PERFORMANCE_VIEW', power_name: 'ANALYST_PERFORMANCE_VIEW', category: 'ANALYST' },
+  { power_id: 'PWR_ANALYST_ACQUISITION_VIEW', power_name: 'ANALYST_ACQUISITION_VIEW', category: 'ANALYST' },
   
   { power_id: 'PWR_USER_REGISTER', power_name: 'USER_REGISTER', category: 'USER' },
   { power_id: 'PWR_USER_PROFILE_EDIT_OWN', power_name: 'USER_PROFILE_EDIT_OWN', category: 'USER' },

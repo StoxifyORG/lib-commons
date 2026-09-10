@@ -68,7 +68,8 @@ export async function seedRoles(): Promise<string[]> {
       description: 'Views the marketing waitlist and reaches out to leads',
       powers: getPowerIds([
         'ADMIN_DASHBOARD_VIEW',
-        'WAITLIST_READ'
+        'WAITLIST_READ',
+        'ANALYST_ACQUISITION_VIEW'
       ])
     },
     {
@@ -85,7 +86,7 @@ export async function seedRoles(): Promise<string[]> {
       description: 'Administrator',
       powers: getPowerIds([
         'TRADE_READ_ALL', 'ANALYST_VERIFY', 'ANALYST_PROFILE_EDIT_ALL', 'ANALYST_BLOCK',
-        'ANALYST_READ_ALL', 'USER_PROFILE_EDIT_ALL', 'USER_READ_ALL', 'USER_BLOCK',
+        'ANALYST_READ_ALL', 'ANALYST_ACQUISITION_VIEW', 'USER_PROFILE_EDIT_ALL', 'USER_READ_ALL', 'USER_BLOCK',
         'USER_STATE_CHANGE', 'PLAN_MODIFY_ALL', 'PLAN_READ_ALL', 'SUBSCRIPTION_CANCEL_ALL',
         'SUBSCRIPTION_READ_ALL', 'SUBSCRIPTION_REFUND', 'NOTIFICATION_SEND_BROADCAST',
         'ADMIN_DASHBOARD_VIEW', 'ADMIN_ANALYTICS_VIEW', 'ADMIN_LOGS_VIEW',
