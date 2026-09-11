@@ -1,11 +1,21 @@
 # @stoxifyorg/database
 
+## 2.0.0
+
+### Major Changes
+
+- BREAKING: `connectDatabase(uri: string)` is now `connectDatabase({ uri?, options })`. The shared package no longer hardcodes `maxPoolSize`, `serverSelectionTimeoutMS` or `socketTimeoutMS`; each service must pass its own driver options (typically from `MONGO_MAX_POOL_SIZE`, `MONGO_SERVER_SELECTION_TIMEOUT_MS`, `MONGO_SOCKET_TIMEOUT_MS` env vars). `uri` defaults to `MONGODB_URI` via the new `getMongoUri()` helper. Exports `ConnectDatabaseConfig`, `MongoConnectOptions`, `getMongoUri`, `DEFAULT_LOCAL_MONGO_URI`.
+
+  Migration:
+  before: `await connectDatabase(process.env.MONGODB_URI!)`
+  after: `await connectDatabase({ options: { maxPoolSize: 10, serverSelectionTimeoutMS: 5000, socketTimeoutMS: 45000 } })`
+  Note: the MongoDB driver default is maxPoolSize 100 — always set it explicitly.
+
 ## 1.2.3
 
 ### Patch Changes
 
 - Add `ltp_at_modification` to `modification_history` subdocuments and document the `changed_indices` shape of `fields_changed.targets`. Written by trade-service's `modifyTrade` so the trade history UI can show which target rung was edited and at what LTP. Null/absent on older entries — consumers fall back to diffing `fields_changed.targets.old`/`.new` index-wise.
-
 
 ## 1.2.2
 

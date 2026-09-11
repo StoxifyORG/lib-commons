@@ -47,7 +47,13 @@ export {
   type AnalystPeriodMetrics,
   type AnalystMetrics,
 } from './analystMetrics';
-export { connectDatabase } from './connection';
+export {
+  connectDatabase,
+  getMongoUri,
+  DEFAULT_LOCAL_MONGO_URI,
+  type ConnectDatabaseConfig,
+  type MongoConnectOptions,
+} from './connection';
 export {
   withMongoTransaction,
   type MongoTransactionFn,

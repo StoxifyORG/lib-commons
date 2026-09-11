@@ -1,15 +1,12 @@
-import { connectDatabase } from '../src/connection';
 import mongoose from 'mongoose';
-
-// Since we're writing this file in packages/database, the relative path to connection is likely './connection'
-// Wait, I will just write it in packages/database/src/counts.ts
-import { connectDatabase as connectDb } from './connection';
+import { connectDatabase } from './connection';
 import { Power, Role, User } from './index';
 
 async function runCounts() {
-  const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/stoxify';
-  await connectDb(uri);
-  
+  await connectDatabase({
+    options: { maxPoolSize: 2, serverSelectionTimeoutMS: 5000, socketTimeoutMS: 45000 },
+  });
+
   try {
     const powersCount = await Power.countDocuments();
     const rolesCount = await Role.countDocuments();
