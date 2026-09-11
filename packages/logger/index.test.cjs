@@ -214,3 +214,53 @@ test('contact PII from real auth-service log lines is censored', () => {
     assert.equal(nested.user[key], REDACT_CENSOR, `${key} leaked when nested`);
   }
 });
+
+test('production without Loki uses pino default stdout (no transport worker)', () => {
+  const prev = {
+    NODE_ENV: process.env.NODE_ENV,
+    GRAFANA_LOKI_URL: process.env.GRAFANA_LOKI_URL,
+  };
+  process.env.NODE_ENV = 'production';
+  delete process.env.GRAFANA_LOKI_URL;
+  const { buildTransport } = require('./dist/index.js');
+  assert.equal(buildTransport(), undefined);
+  process.env.NODE_ENV = prev.NODE_ENV;
+  if (prev.GRAFANA_LOKI_URL === undefined) delete process.env.GRAFANA_LOKI_URL;
+  else process.env.GRAFANA_LOKI_URL = prev.GRAFANA_LOKI_URL;
+});
+
+test('Loki in production keeps stdout so Azure Log stream does not go dark', () => {
+  const prevEnv = {
+    NODE_ENV: process.env.NODE_ENV,
+    GRAFANA_LOKI_URL: process.env.GRAFANA_LOKI_URL,
+    SERVICE_NAME: process.env.SERVICE_NAME,
+    SENTRY_ENVIRONMENT: process.env.SENTRY_ENVIRONMENT,
+    CONTAINER_APP_REVISION: process.env.CONTAINER_APP_REVISION,
+  };
+  process.env.NODE_ENV = 'production';
+  process.env.GRAFANA_LOKI_URL = 'https://logs-prod-example.grafana.net';
+  process.env.SERVICE_NAME = 'auth-service';
+  process.env.SENTRY_ENVIRONMENT = 'staging';
+  process.env.CONTAINER_APP_REVISION = 'auth-service--abc';
+
+  const { buildTransport } = require('./dist/index.js');
+  const transport = buildTransport();
+  assert.ok(transport && 'targets' in transport, 'expected multi-target transport');
+  const names = transport.targets.map((t) => t.target);
+  assert.ok(names.includes('pino/file'), `stdout missing: ${names.join(',')}`);
+  assert.ok(
+    names.some((n) => n === 'pino-loki' || String(n).includes('pino-loki')),
+    `loki missing: ${names.join(',')}`,
+  );
+  const loki = transport.targets.find((t) => String(t.target).includes('pino-loki'));
+  assert.equal(loki.options.labels.service, 'auth-service');
+  assert.equal(loki.options.labels.environment, 'staging');
+  assert.equal(loki.options.labels.azure_revision, 'auth-service--abc');
+  assert.equal(loki.options.silenceErrors, true);
+
+  process.env.NODE_ENV = prevEnv.NODE_ENV;
+  for (const key of ['GRAFANA_LOKI_URL', 'SERVICE_NAME', 'SENTRY_ENVIRONMENT', 'CONTAINER_APP_REVISION']) {
+    if (prevEnv[key] === undefined) delete process.env[key];
+    else process.env[key] = prevEnv[key];
+  }
+});

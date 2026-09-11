@@ -1,4 +1,64 @@
-import pino from 'pino';
+import pino, { TransportMultiOptions, TransportSingleOptions, TransportTargetOptions } from 'pino';
+
+function resolveTarget(name: string): string {
+  try {
+    return require.resolve(name);
+  } catch {
+    return name;
+  }
+}
+
+/**
+ * Production with no Loki uses pino's default stdout (no worker).
+ * The moment a transport exists, pino stops writing stdout itself — so Loki
+ * always pairs with `pino/file` destination 1, or Azure Log stream goes dark.
+ */
+export function buildTransport(): TransportSingleOptions | TransportMultiOptions | undefined {
+  const targets: TransportTargetOptions[] = [];
+  const lokiUrl = process.env.GRAFANA_LOKI_URL;
+
+  if (process.env.NODE_ENV === 'development') {
+    targets.push({
+      target: resolveTarget('pino-pretty'),
+      options: { colorize: true, translateTime: 'SYS:standard' },
+    });
+  } else if (lokiUrl) {
+    targets.push({
+      target: 'pino/file',
+      options: { destination: 1 },
+    });
+  }
+
+  if (lokiUrl) {
+    targets.push({
+      target: resolveTarget('pino-loki'),
+      options: {
+        batching: true,
+        interval: 5,
+        timeout: 5000,
+        silenceErrors: true,
+        host: lokiUrl,
+        basicAuth:
+          process.env.GRAFANA_LOKI_USER && process.env.GRAFANA_LOKI_TOKEN
+            ? {
+                username: process.env.GRAFANA_LOKI_USER,
+                password: process.env.GRAFANA_LOKI_TOKEN,
+              }
+            : undefined,
+        labels: {
+          service: process.env.SERVICE_NAME ?? 'unknown',
+          environment:
+            process.env.SENTRY_ENVIRONMENT ?? process.env.NODE_ENV ?? 'development',
+          azure_revision: process.env.CONTAINER_APP_REVISION ?? 'local',
+        },
+      },
+    });
+  }
+
+  if (targets.length === 0) return undefined;
+  if (targets.length === 1) return targets[0];
+  return { targets };
+}
 
 /** Replacement written in place of any sensitive value. */
 export const REDACT_CENSOR = '[REDACTED]';
@@ -265,10 +325,7 @@ export const redactionOptions = {
 export const logger = pino({
   level: process.env.LOG_LEVEL ?? 'info',
   ...redactionOptions,
-  transport:
-    process.env.NODE_ENV === 'development'
-      ? { target: 'pino-pretty', options: { colorize: true, translateTime: 'SYS:standard' } }
-      : undefined,
+  transport: buildTransport(),
 });
 
 export type Logger = typeof logger;
