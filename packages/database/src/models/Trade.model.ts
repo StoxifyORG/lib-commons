@@ -39,6 +39,13 @@ const BaseTradeSchema = new Schema(
         _id: false,
         modified_at: Date,
         modified_by: String,
+        // Symbol LTP when the edit was made — lets the history UI show at what
+        // price the trade was trading when the analyst changed its levels.
+        // Null on entries written before this was captured.
+        ltp_at_modification: { type: Number, default: null },
+        // For target edits: { old, new, changed_indices } where changed_indices
+        // holds the 0-based ladder rungs the edit touched. Absent on older
+        // entries — consumers diff old/new index-wise as a fallback.
         fields_changed: Schema.Types.Mixed,
         reason: String,
       },

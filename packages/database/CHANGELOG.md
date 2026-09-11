@@ -1,5 +1,12 @@
 # @stoxifyorg/database
 
+## 1.2.3
+
+### Patch Changes
+
+- Add `ltp_at_modification` to `modification_history` subdocuments and document the `changed_indices` shape of `fields_changed.targets`. Written by trade-service's `modifyTrade` so the trade history UI can show which target rung was edited and at what LTP. Null/absent on older entries — consumers fall back to diffing `fields_changed.targets.old`/`.new` index-wise.
+
+
 ## 1.2.2
 
 ### Patch Changes
