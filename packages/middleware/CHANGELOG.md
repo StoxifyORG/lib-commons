@@ -1,5 +1,14 @@
 # @stoxifyorg/middleware
 
+## 1.0.6
+
+### Patch Changes
+
+- Updated dependencies [131ae84]
+  - @stoxifyorg/logger@1.3.0
+  - @stoxifyorg/auth-utils@1.0.3
+  - @stoxifyorg/redis@1.0.3
+
 ## 1.0.5
 
 ### Patch Changes

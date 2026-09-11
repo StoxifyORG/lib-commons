@@ -1,5 +1,11 @@
 # @stoxifyorg/logger
 
+## 1.3.0
+
+### Minor Changes
+
+- 131ae84: Optional Grafana Cloud Loki transport when GRAFANA_LOKI_URL is set. PII redaction and stdout (Azure Log stream) are unchanged.
+
 ## 1.2.0
 
 ### Minor Changes
