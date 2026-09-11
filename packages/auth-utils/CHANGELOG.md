@@ -1,5 +1,13 @@
 # @stoxifyorg/auth-utils
 
+## 1.0.3
+
+### Patch Changes
+
+- Updated dependencies [131ae84]
+  - @stoxifyorg/logger@1.3.0
+  - @stoxifyorg/redis@1.0.3
+
 ## 1.0.2
 
 ### Patch Changes
