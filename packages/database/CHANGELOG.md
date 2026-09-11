@@ -1,5 +1,11 @@
 # @stoxifyorg/database
 
+## 1.2.2
+
+### Patch Changes
+
+- Add `target_hit_log` (`{ target_index, price, hit_at }[]`) to the base Trade schema. Written by trade-service's auto-close engine per booked target rung; drives the per-rung "Target T1 hit" rows in the trade history UI. Absent on older documents — consumers fall back to the single exit row.
+
 ## 1.2.1
 
 ### Patch Changes

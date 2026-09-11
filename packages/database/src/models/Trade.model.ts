@@ -50,6 +50,18 @@ const BaseTradeSchema = new Schema(
       type: String,
       enum: ['CLOSED_BY_SL', 'CLOSED_BY_TARGET', 'MANUALLY_CLOSED', 'PARTIAL_TARGET_HIT'],
     },
+    // One entry per target rung the auto-close engine booked, in hit order.
+    // Written by autoCloseTrade; drives the per-rung "Target T1 hit" rows in the
+    // trade history UI. Absent on documents created before this field existed —
+    // the UI falls back to the single exit row for those.
+    target_hit_log: [
+      {
+        _id: false,
+        target_index: { type: Number, required: true },
+        price: { type: Number, required: true },
+        hit_at: { type: Date, required: true },
+      },
+    ],
   },
   { discriminatorKey: 'trade_type', collection: 'trades' }
 );
