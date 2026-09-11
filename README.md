@@ -138,11 +138,24 @@ npm view @stoxifyorg/database versions --registry=https://npm.pkg.github.com
    import { logger } from "@stoxifyorg/logger";
    import { connectDatabase } from "@stoxifyorg/database";
 
-   // uri defaults to MONGODB_URI; pool/timeout options are owned by the service
+   // uri defaults to MONGODB_URI (required — no fallback); pool/timeout options are owned by the service
    await connectDatabase({
      options: { maxPoolSize: 10, serverSelectionTimeoutMS: 5000, socketTimeoutMS: 45000 },
    });
    ```
+
+### `@stoxifyorg/database` connection contract (v2)
+
+`connectDatabase({ uri?, options })` applies **no defaults** — `options` is required and the
+MongoDB driver's own default is `maxPoolSize: 100`, so always set it. `uri` falls back to
+`MONGODB_URI` and throws if that is unset. Each service reads its values from env:
+
+| Var | Typical |
+|---|---|
+| `MONGODB_URI` | required, injected per service (Azure secret ref) |
+| `MONGO_MAX_POOL_SIZE` | 5–10 low-traffic (auth, rbac), 20–50 core (trade), 5–15 workers |
+| `MONGO_SERVER_SELECTION_TIMEOUT_MS` | `5000` |
+| `MONGO_SOCKET_TIMEOUT_MS` | `45000` |
 
 Consumers must be members of `StoxifyORG` with read access (packages are private).
 

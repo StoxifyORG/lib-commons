@@ -50,7 +50,6 @@ export {
 export {
   connectDatabase,
   getMongoUri,
-  DEFAULT_LOCAL_MONGO_URI,
   type ConnectDatabaseConfig,
   type MongoConnectOptions,
 } from './connection';

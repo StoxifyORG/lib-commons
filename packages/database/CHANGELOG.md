@@ -1,5 +1,11 @@
 # @stoxifyorg/database
 
+## 2.0.1
+
+### Patch Changes
+
+- `getMongoUri()` no longer falls back to a local default; it throws when `MONGODB_URI` is unset. Removed the `DEFAULT_LOCAL_MONGO_URI` export (introduced in 2.0.0, unused by any service). Dropped the package-level README in favour of a short section in the repo README.
+
 ## 2.0.0
 
 ### Major Changes

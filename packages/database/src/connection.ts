@@ -11,11 +11,13 @@ export interface ConnectDatabaseConfig {
   options: MongoConnectOptions;
 }
 
-export const DEFAULT_LOCAL_MONGO_URI = 'mongodb://localhost:27017/stoxify';
-
-/** Reads MONGODB_URI from the environment, falling back to the local-dev URI. */
+/** Reads MONGODB_URI from the environment. There is deliberately no default URI. */
 export function getMongoUri(): string {
-  return process.env.MONGODB_URI || DEFAULT_LOCAL_MONGO_URI;
+  const uri = process.env.MONGODB_URI;
+  if (!uri) {
+    throw new Error('MONGODB_URI is not set — the connection string must be injected by the service environment');
+  }
+  return uri;
 }
 
 // Connection event handlers must be attached exactly once per process. A second

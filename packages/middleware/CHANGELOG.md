@@ -1,5 +1,12 @@
 # @stoxifyorg/middleware
 
+## 1.0.5
+
+### Patch Changes
+
+- Updated dependencies
+  - @stoxifyorg/database@2.0.1
+
 ## 1.0.4
 
 ### Patch Changes
