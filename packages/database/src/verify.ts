@@ -1,10 +1,13 @@
 import mongoose from 'mongoose';
+import { connectDatabase } from './connection';
 import { Power } from './models/Power.model';
 import { Role } from './models/Role.model';
 import { User } from './models/User.model';
 
 async function verify() {
-  await mongoose.connect('mongodb://localhost:27017/stoxify');
+  await connectDatabase({
+    options: { maxPoolSize: 2, serverSelectionTimeoutMS: 5000, socketTimeoutMS: 45000 },
+  });
   console.log('=== VERIFICATION ===');
   console.log('Powers:', await Power.countDocuments());
   console.log('Roles:', await Role.countDocuments());

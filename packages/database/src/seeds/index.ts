@@ -15,8 +15,9 @@ export async function runSeed(): Promise<{ changedRoleIds: string[] }> {
 }
 
 async function runSeeds() {
-  const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/stoxify';
-  await connectDatabase(uri);
+  await connectDatabase({
+    options: { maxPoolSize: 2, serverSelectionTimeoutMS: 5000, socketTimeoutMS: 45000 },
+  });
 
   try {
     await runSeed();

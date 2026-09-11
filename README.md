@@ -136,7 +136,12 @@ npm view @stoxifyorg/database versions --registry=https://npm.pkg.github.com
 4. Use it:
    ```ts
    import { logger } from "@stoxifyorg/logger";
-   import { connect } from "@stoxifyorg/database";
+   import { connectDatabase } from "@stoxifyorg/database";
+
+   // uri defaults to MONGODB_URI (required — no fallback); pool/timeout options are owned by the service
+   await connectDatabase({
+     options: { maxPoolSize: 10, serverSelectionTimeoutMS: 5000, socketTimeoutMS: 45000 },
+   });
    ```
 
 Consumers must be members of `StoxifyORG` with read access (packages are private).

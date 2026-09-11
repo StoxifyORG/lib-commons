@@ -35,7 +35,10 @@ test('withMongoTransaction integration test suite', async (t) => {
   });
 
   await t.test('connects to MongoDB replica set', async () => {
-    await connectDatabase(MONGO_URI);
+    await connectDatabase({
+      uri: MONGO_URI,
+      options: { maxPoolSize: 2, serverSelectionTimeoutMS: 5000, socketTimeoutMS: 45000 },
+    });
   });
 
   await t.test('commits multiple document writes atomically on success', async () => {
